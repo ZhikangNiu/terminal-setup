@@ -108,15 +108,6 @@ backup_file "$HOME/.zshrc"
 cp "$SCRIPT_DIR/configs/.zshrc" "$HOME/.zshrc"
 echo "Config files deployed."
 
-# Claude Code config
-mkdir -p "$HOME/.claude"
-backup_file "$HOME/.claude/settings.json"
-cp "$SCRIPT_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
-if [ -d "$SCRIPT_DIR/.claude/skills" ]; then
-    cp -r "$SCRIPT_DIR/.claude/skills" "$HOME/.claude/"
-fi
-echo "Claude Code config deployed."
-
 # Default shell
 CURRENT_USER="${USER:-$(whoami)}"
 current_shell="$(getent passwd "$CURRENT_USER" | cut -d: -f7)"

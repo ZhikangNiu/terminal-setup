@@ -10,6 +10,8 @@ set ruler                   " Show cursor position in the status line. 在状态
 set encoding=utf-8          " Set file encoding to UTF-8. 设置文件编码为UTF-8
 set showmode                " Show current mode in the command-line. 在命令行显示当前模式
 set showcmd                 " Show partial commands in the command-line. 显示已输入的部分命令
+set cursorline              " Highlight the current line. 高亮当前行
+set scrolloff=5             " Keep 5 lines visible above/below cursor. 光标距顶/底保持5行
 
 " --- Searching Settings / 搜索设置 ---
 set incsearch               " Highlight matches while typing search patterns. 在输入搜索模式时高亮匹配项

@@ -118,10 +118,11 @@ fi
 echo "Claude Code config deployed."
 
 # Default shell
-current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+CURRENT_USER="${USER:-$(whoami)}"
+current_shell="$(getent passwd "$CURRENT_USER" | cut -d: -f7)"
 zsh_path="$(which zsh)"
 if [ "$current_shell" != "$zsh_path" ]; then
-    $SUDO chsh -s "$zsh_path" "$USER"
+    $SUDO chsh -s "$zsh_path" "$CURRENT_USER"
     echo "Default shell changed to zsh."
 fi
 

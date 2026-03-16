@@ -42,6 +42,10 @@ bash ~/terminal_setup/setup.sh
 | Claude Code 配置 | 创建 `~/.claude/` + 复制 | 备份 + 复制 |
 | 默认 shell | 切换为 zsh | 跳过（已是 zsh） |
 
+## tmux 复制粘贴
+
+鼠标拖选文本 → 松开完成复制 → `Ctrl+b` 然后 `]` 粘贴
+
 ## 自定义
 
 - **主题**：编辑 `configs/.zshrc`，修改 `ZSH_THEME`

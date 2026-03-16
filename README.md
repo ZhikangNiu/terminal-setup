@@ -42,6 +42,10 @@ The script is fully idempotent — safe to run multiple times:
 | Claude Code config | Creates `~/.claude/` + copy | Backup + copy |
 | Default shell | Changes to zsh | Skips (already zsh) |
 
+## tmux Copy & Paste
+
+Mouse drag to select → release to copy → `Ctrl+b` then `]` to paste
+
 ## Customization
 
 - **Theme**: Edit `configs/.zshrc` and change `ZSH_THEME`

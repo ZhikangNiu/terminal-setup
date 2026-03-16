@@ -22,3 +22,4 @@ alias pyd='python -m debugpy --wait-for-client --listen 5678'
 
 # export
 export HF_ENDPOINT="https://hf-mirror.com"
+export PATH="$HOME/.local/bin:$PATH"

@@ -109,6 +109,7 @@ cp "$SCRIPT_DIR/configs/.zshrc" "$HOME/.zshrc"
 backup_file "$HOME/.tmux.conf"
 cp "$SCRIPT_DIR/configs/.tmux.conf" "$HOME/.tmux.conf"
 echo "Config files deployed."
+tmux source-file "$HOME/.tmux.conf" 2>/dev/null || true
 
 # Default shell
 CURRENT_USER="${USER:-$(whoami)}"

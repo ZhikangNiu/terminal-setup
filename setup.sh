@@ -106,6 +106,8 @@ backup_file "$HOME/.vimrc"
 cp "$SCRIPT_DIR/configs/.vimrc" "$HOME/.vimrc"
 backup_file "$HOME/.zshrc"
 cp "$SCRIPT_DIR/configs/.zshrc" "$HOME/.zshrc"
+backup_file "$HOME/.tmux.conf"
+cp "$SCRIPT_DIR/configs/.tmux.conf" "$HOME/.tmux.conf"
 echo "Config files deployed."
 
 # Default shell

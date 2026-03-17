@@ -6,7 +6,7 @@
 
 ## 功能
 
-- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`、`jq`
+- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`、`jq`、`aria2`
 - 安装 [Oh My Zsh](https://ohmyz.sh/)，使用 `ys` 主题
 - 安装插件：`zsh-autosuggestions`、`zsh-syntax-highlighting`
 - 部署 `.zshrc` 和 `.vimrc` 配置文件（自动备份已有文件）

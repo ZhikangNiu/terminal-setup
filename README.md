@@ -6,7 +6,7 @@ One-command terminal environment setup for Ubuntu/Debian servers.
 
 ## What It Does
 
-- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`, `jq`
+- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`, `jq`, `aria2`
 - Installs [Oh My Zsh](https://ohmyz.sh/) with the `ys` theme
 - Installs plugins: `zsh-autosuggestions`, `zsh-syntax-highlighting`
 - Deploys `.zshrc` and `.vimrc` configs (backs up existing files)

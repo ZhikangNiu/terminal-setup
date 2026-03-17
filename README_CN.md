@@ -6,14 +6,13 @@
 
 ## 功能
 
-- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`
+- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`、`jq`
 - 安装 [Oh My Zsh](https://ohmyz.sh/)，使用 `ys` 主题
 - 安装插件：`zsh-autosuggestions`、`zsh-syntax-highlighting`
 - 部署 `.zshrc` 和 `.vimrc` 配置文件（自动备份已有文件）
 - 将 zsh 设为默认 shell
 - 配置常用别名（`ll`、`la`、`gs`、`gl`、`pyd` 等）
 - 设置 `HF_ENDPOINT` 为 Hugging Face 镜像站
-- 部署 Claude Code 插件配置（`settings.json`，含已启用插件）
 
 ## 使用方法
 
@@ -39,8 +38,17 @@ bash ~/terminal_setup/setup.sh
 | Oh My Zsh | 安装 | 跳过（目录已存在） |
 | 插件 | `git clone` | `git pull` |
 | 配置文件 | 备份 + 复制 | 新备份 + 复制 |
-| Claude Code 配置 | 创建 `~/.claude/` + 复制 | 备份 + 复制 |
 | 默认 shell | 切换为 zsh | 跳过（已是 zsh） |
+
+## Claude Code 配置（手动）
+
+仓库包含 Claude Code 配置文件（`.claude/` 目录），克隆后手动复制：
+
+```bash
+mkdir -p ~/.claude
+cp ~/terminal_setup/.claude/settings.json ~/.claude/
+cp ~/terminal_setup/.claude/statusline.sh ~/.claude/
+```
 
 ## tmux 复制粘贴
 
@@ -53,3 +61,4 @@ bash ~/terminal_setup/setup.sh
 - **Vim**：编辑 `configs/.vimrc`
 - **系统包**：编辑 `setup.sh` 中的 `apt-get install` 行
 - **Claude Code 插件**：编辑 `.claude/settings.json`，增减 `enabledPlugins`
+- **Claude Code 状态栏**：编辑 `.claude/statusline.sh`

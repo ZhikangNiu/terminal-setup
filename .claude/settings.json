@@ -1,4 +1,9 @@
 {
+  "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh"
+  },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
@@ -7,5 +12,6 @@
     "pyright-lsp@claude-plugins-official": true,
     "github@claude-plugins-official": true,
     "huggingface-skills@claude-plugins-official": true
-  }
+  },
+  "effortLevel": "high"
 }

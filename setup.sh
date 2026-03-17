@@ -67,7 +67,7 @@ fi
 # System packages
 if [ "$MODE" != "offline" ]; then
     $SUDO apt-get update -y
-    $SUDO apt-get install -y git curl wget htop tree zsh zip
+    $SUDO apt-get install -y git curl wget htop tree zsh zip jq
     echo "System packages installed."
 else
     echo "Offline mode: skipping apt-get (assuming packages already installed)."

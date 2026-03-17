@@ -6,15 +6,13 @@ One-command terminal environment setup for Ubuntu/Debian servers.
 
 ## What It Does
 
-- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`
+- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`, `jq`
 - Installs [Oh My Zsh](https://ohmyz.sh/) with the `ys` theme
 - Installs plugins: `zsh-autosuggestions`, `zsh-syntax-highlighting`
 - Deploys `.zshrc` and `.vimrc` configs (backs up existing files)
 - Sets zsh as the default shell
 - Configures useful aliases (`ll`, `la`, `gs`, `gl`, `pyd`, etc.)
 - Sets `HF_ENDPOINT` to the Hugging Face mirror
-- Deploys Claude Code plugin config (`settings.json` with enabled plugins)
-
 ## Usage
 
 ```bash
@@ -39,8 +37,17 @@ The script is fully idempotent — safe to run multiple times:
 | Oh My Zsh | Installs | Skips (directory exists) |
 | Plugins | `git clone` | `git pull` |
 | Config files | Backup + copy | New backup + copy |
-| Claude Code config | Creates `~/.claude/` + copy | Backup + copy |
 | Default shell | Changes to zsh | Skips (already zsh) |
+
+## Claude Code Setup (Manual)
+
+The repo includes Claude Code config under `.claude/`. Copy them manually after cloning:
+
+```bash
+mkdir -p ~/.claude
+cp ~/terminal_setup/.claude/settings.json ~/.claude/
+cp ~/terminal_setup/.claude/statusline.sh ~/.claude/
+```
 
 ## tmux Copy & Paste
 
@@ -53,3 +60,4 @@ Mouse drag to select → release to copy → `Ctrl+b` then `]` to paste
 - **Vim**: Edit `configs/.vimrc`
 - **Packages**: Edit the `apt-get install` line in `setup.sh`
 - **Claude Code plugins**: Edit `.claude/settings.json` to add/remove `enabledPlugins`
+- **Claude Code status line**: Edit `.claude/statusline.sh`

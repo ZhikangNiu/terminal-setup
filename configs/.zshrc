@@ -21,6 +21,7 @@ alias gl='git log --oneline -20'
 alias pyd='python -m debugpy --wait-for-client --listen 5678'
 alias pkf='pkill -f'
 alias psg='ps aux | grep -v grep | grep'
+alias tn='tmux new -s'
 
 # export
 export HF_ENDPOINT="https://hf-mirror.com"

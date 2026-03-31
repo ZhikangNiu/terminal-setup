@@ -33,6 +33,21 @@ if [ "$MODE" = "cache" ]; then
             git clone --quiet "https://github.com/$repo.git" "$dest"
         fi
     done
+    # Cache yazi binary
+    ARCH="$(uname -m)"
+    [ "$ARCH" = "arm64" ] && ARCH="aarch64"
+    echo "Downloading yazi for $ARCH..."
+    curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-gnu.zip" \
+        -o "$CACHE_DIR/yazi.zip"
+    # Cache zoxide binary
+    echo "Downloading zoxide for $ARCH..."
+    ZOXIDE_TMP="$(mktemp -d)"
+    ZOXIDE_URL="$(curl -sSf https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest \
+        | jq -r ".assets[] | select(.name | test(\"zoxide-.*-${ARCH}-unknown-linux-musl.tar.gz\")) | .browser_download_url")"
+    curl -fsSL "$ZOXIDE_URL" -o "$ZOXIDE_TMP/zoxide.tar.gz"
+    tar -xzf "$ZOXIDE_TMP/zoxide.tar.gz" -C "$ZOXIDE_TMP"
+    cp "$ZOXIDE_TMP/zoxide" "$CACHE_DIR/zoxide"
+    rm -rf "$ZOXIDE_TMP"
     echo "Cache ready at $CACHE_DIR"
     exit 0
 fi
@@ -43,6 +58,12 @@ if [ "$MODE" = "offline" ]; then
     for name in ohmyzsh zsh-autosuggestions zsh-syntax-highlighting; do
         if [ ! -d "$CACHE_DIR/$name" ]; then
             echo "Missing $CACHE_DIR/$name — run './setup.sh --cache' on an online machine first." >&2
+            exit 1
+        fi
+    done
+    for file in yazi.zip zoxide; do
+        if [ ! -f "$CACHE_DIR/$file" ]; then
+            echo "Missing $CACHE_DIR/$file — run './setup.sh --cache' on an online machine first." >&2
             exit 1
         fi
     done
@@ -67,10 +88,54 @@ fi
 # System packages
 if [ "$MODE" != "offline" ]; then
     $SUDO apt-get update -y
-    $SUDO apt-get install -y git curl wget htop tree zsh zip jq aria2
+    $SUDO apt-get install -y git curl wget htop tree zsh zip jq aria2 \
+        fd-find ripgrep fzf poppler-utils ffmpeg imagemagick p7zip-full file unzip
     echo "System packages installed."
 else
     echo "Offline mode: skipping apt-get (assuming packages already installed)."
+fi
+
+# Yazi terminal file manager
+mkdir -p "$HOME/.local/bin"
+if ! command -v yazi &>/dev/null; then
+    echo "Installing yazi..."
+    ARCH="$(uname -m)"
+    [ "$ARCH" = "arm64" ] && ARCH="aarch64"
+    YAZI_TMP="$(mktemp -d)"
+    if [ "$MODE" = "offline" ]; then
+        unzip -qo "$SCRIPT_DIR/cache/yazi.zip" -d "$YAZI_TMP"
+    else
+        curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-gnu.zip" \
+            -o "$YAZI_TMP/yazi.zip"
+        unzip -qo "$YAZI_TMP/yazi.zip" -d "$YAZI_TMP"
+    fi
+    cp "$YAZI_TMP"/yazi-*/yazi "$HOME/.local/bin/yazi"
+    cp "$YAZI_TMP"/yazi-*/ya "$HOME/.local/bin/ya"
+    chmod +x "$HOME/.local/bin/yazi" "$HOME/.local/bin/ya"
+    rm -rf "$YAZI_TMP"
+    echo "Yazi installed."
+else
+    echo "Yazi already installed, skipping."
+fi
+
+# fd symlink (Debian installs fd-find as fdfind)
+if ! command -v fd &>/dev/null && command -v fdfind &>/dev/null; then
+    ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
+    echo "Created fd symlink for fdfind."
+fi
+
+# Zoxide
+if ! command -v zoxide &>/dev/null; then
+    echo "Installing zoxide..."
+    if [ "$MODE" = "offline" ]; then
+        cp "$SCRIPT_DIR/cache/zoxide" "$HOME/.local/bin/zoxide"
+        chmod +x "$HOME/.local/bin/zoxide"
+    else
+        curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    fi
+    echo "Zoxide installed."
+else
+    echo "Zoxide already installed, skipping."
 fi
 
 # Oh My Zsh

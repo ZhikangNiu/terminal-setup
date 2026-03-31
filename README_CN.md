@@ -6,12 +6,15 @@
 
 ## 功能
 
-- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`、`jq`、`aria2`
+- 安装系统包：`git`、`curl`、`wget`、`htop`、`tree`、`zsh`、`zip`、`jq`、`aria2`、`fd-find`、`ripgrep`、`fzf`、`ffmpeg`、`imagemagick`、`poppler-utils`、`p7zip-full` 等
 - 安装 [Oh My Zsh](https://ohmyz.sh/)，使用 `ys` 主题
 - 安装插件：`zsh-autosuggestions`、`zsh-syntax-highlighting`
-- 部署 `.zshrc` 和 `.vimrc` 配置文件（自动备份已有文件）
+- 安装 [Yazi](https://yazi-rs.github.io/) 终端文件管理器（从 GitHub releases 下载预编译二进制）
+- 安装 [Zoxide](https://github.com/ajeetdsouza/zoxide) 智能目录跳转（替代 Oh My Zsh 的 `z` 插件）
+- 部署 `.zshrc`、`.vimrc` 和 `.tmux.conf` 配置文件（自动备份已有文件）
 - 将 zsh 设为默认 shell
-- 配置常用别名（`ll`、`la`、`gs`、`gl`、`pyd` 等）
+- 配置常用别名（`ll`、`la`、`gs`、`gl`、`pyd`、`y` 等）
+- 提供 `proxy_on` / `proxy_off` 代理管理函数
 - 设置 `HF_ENDPOINT` 为 Hugging Face 镜像站
 
 ## 使用方法
@@ -35,6 +38,8 @@ bash ~/terminal_setup/setup.sh
 | 步骤 | 首次运行 | 再次运行 |
 |------|---------|---------|
 | 系统包 | 安装 | 跳过已安装的 |
+| Yazi | 下载二进制 | 跳过（已在 PATH 中） |
+| Zoxide | 安装 | 跳过（已在 PATH 中） |
 | Oh My Zsh | 安装 | 跳过（目录已存在） |
 | 插件 | `git clone` | `git pull` |
 | 配置文件 | 备份 + 复制 | 新备份 + 复制 |

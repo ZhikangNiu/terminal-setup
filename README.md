@@ -6,12 +6,15 @@ One-command terminal environment setup for Ubuntu/Debian servers.
 
 ## What It Does
 
-- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`, `jq`, `aria2`
+- Installs system packages: `git`, `curl`, `wget`, `htop`, `tree`, `zsh`, `zip`, `jq`, `aria2`, `fd-find`, `ripgrep`, `fzf`, `ffmpeg`, `imagemagick`, `poppler-utils`, `p7zip-full`, etc.
 - Installs [Oh My Zsh](https://ohmyz.sh/) with the `ys` theme
 - Installs plugins: `zsh-autosuggestions`, `zsh-syntax-highlighting`
-- Deploys `.zshrc` and `.vimrc` configs (backs up existing files)
+- Installs [Yazi](https://yazi-rs.github.io/) terminal file manager (pre-built binary from GitHub releases)
+- Installs [Zoxide](https://github.com/ajeetdsouza/zoxide) for smart directory jumping (replaces Oh My Zsh `z` plugin)
+- Deploys `.zshrc`, `.vimrc`, and `.tmux.conf` configs (backs up existing files)
 - Sets zsh as the default shell
-- Configures useful aliases (`ll`, `la`, `gs`, `gl`, `pyd`, etc.)
+- Configures useful aliases (`ll`, `la`, `gs`, `gl`, `pyd`, `y`, etc.)
+- Provides `proxy_on` / `proxy_off` functions for proxy management
 - Sets `HF_ENDPOINT` to the Hugging Face mirror
 ## Usage
 
@@ -34,6 +37,8 @@ The script is fully idempotent — safe to run multiple times:
 | Step | First run | Re-run |
 |------|-----------|--------|
 | System packages | Installs | Skips already-installed |
+| Yazi | Downloads binary | Skips (already in PATH) |
+| Zoxide | Installs | Skips (already in PATH) |
 | Oh My Zsh | Installs | Skips (directory exists) |
 | Plugins | `git clone` | `git pull` |
 | Config files | Backup + copy | New backup + copy |

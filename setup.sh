@@ -37,7 +37,7 @@ if [ "$MODE" = "cache" ]; then
     ARCH="$(uname -m)"
     [ "$ARCH" = "arm64" ] && ARCH="aarch64"
     echo "Downloading yazi for $ARCH..."
-    curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-gnu.zip" \
+    curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-musl.zip" \
         -o "$CACHE_DIR/yazi.zip"
     # Cache zoxide binary
     echo "Downloading zoxide for $ARCH..."
@@ -105,7 +105,7 @@ if ! command -v yazi &>/dev/null; then
     if [ "$MODE" = "offline" ]; then
         unzip -qo "$SCRIPT_DIR/cache/yazi.zip" -d "$YAZI_TMP"
     else
-        curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-gnu.zip" \
+        curl -fsSL "https://github.com/sxyazi/yazi/releases/latest/download/yazi-${ARCH}-unknown-linux-musl.zip" \
             -o "$YAZI_TMP/yazi.zip"
         unzip -qo "$YAZI_TMP/yazi.zip" -d "$YAZI_TMP"
     fi
@@ -131,7 +131,20 @@ if ! command -v zoxide &>/dev/null; then
         cp "$SCRIPT_DIR/cache/zoxide" "$HOME/.local/bin/zoxide"
         chmod +x "$HOME/.local/bin/zoxide"
     else
-        curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+        ARCH="$(uname -m)"
+        [ "$ARCH" = "arm64" ] && ARCH="aarch64"
+        ZOXIDE_TMP="$(mktemp -d)"
+        ZOXIDE_TAG="$(curl -sSf -H 'Accept: application/json' https://github.com/ajeetdsouza/zoxide/releases/latest | sed 's/.*"tag_name":"\([^"]*\)".*/\1/')"
+        if [ -z "$ZOXIDE_TAG" ]; then
+            echo "Warning: failed to detect latest zoxide version, using v0.9.6" >&2
+            ZOXIDE_TAG="v0.9.6"
+        fi
+        curl -fsSL "https://github.com/ajeetdsouza/zoxide/releases/download/${ZOXIDE_TAG}/zoxide-${ZOXIDE_TAG#v}-${ARCH}-unknown-linux-musl.tar.gz" \
+            -o "$ZOXIDE_TMP/zoxide.tar.gz"
+        tar -xzf "$ZOXIDE_TMP/zoxide.tar.gz" -C "$ZOXIDE_TMP"
+        cp "$ZOXIDE_TMP/zoxide" "$HOME/.local/bin/zoxide"
+        chmod +x "$HOME/.local/bin/zoxide"
+        rm -rf "$ZOXIDE_TMP"
     fi
     echo "Zoxide installed."
 else
